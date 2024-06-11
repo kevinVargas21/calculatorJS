@@ -40,6 +40,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (value === '=') {
+            if (display.value === 'Error' || display.value === 'NaN' || display.value === 'Infinity' || currentInput === '') {
+                currentInput = '';
+                updateDisplay('');
+                return;
+            }
             currentInput = evaluateExpression(currentInput);
             updateDisplay(currentInput);
             return;
@@ -58,9 +63,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             } else if (!operators.includes(lastChar)) {
                 currentInput += value;
-            } else if (operators.includes(lastChar) && !operators.includes(secondLastChar) && value === '-') {
+            } else if (operators.includes(lastChar) && !operators.includes(secondLastChar) && value === '-' && currentInput.length > 1) {
                 currentInput += value;
-            } else if (operators.includes(lastChar) && !operators.includes(secondLastChar) && value !== '-') {
+            } else if (operators.includes(lastChar) && !operators.includes(secondLastChar) && value !== '-' && currentInput.length > 1) {
                 currentInput = currentInput.slice(0, -1) + value;
             }
         } else if (value === '.') {
