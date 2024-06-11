@@ -1,0 +1,101 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #e8e8e8;
+  height: 100vh;
+}
+.container .calculator {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+}
+.container .calculator #display {
+  margin-bottom: 10px;
+  text-align: right;
+  font-size: 2em;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #e8e8e8;
+  width: 100%;
+  box-sizing: border-box;
+}
+.container .calculator .buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(5, 60px);
+  gap: 10px;
+}
+.container .calculator .buttons .button {
+  padding: 10px;
+  font-size: 1.5em;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.container .calculator .buttons .button.number {
+  background-color: #e8e8e8;
+}
+.container .calculator .buttons .button.number:hover {
+  background-color: #cfcfcf;
+}
+.container .calculator .buttons .button.operator {
+  background-color: #e74c3c;
+}
+.container .calculator .buttons .button.operator:hover {
+  background-color: #d62c1a;
+}
+.container .calculator .buttons .button.function {
+  background-color: #00d0ea;
+}
+.container .calculator .buttons .button.function:hover {
+  background-color: #00a3b7;
+}
+.container .calculator .buttons .button.equal {
+  background-color: #ffca18;
+  grid-row: span 2;
+}
+.container .calculator .buttons .button.equal:hover {
+  background-color: #e4b000;
+}
+
+@media (max-width: 768px) {
+  .calculator {
+    padding: 15px;
+  }
+  .calculator #display {
+    font-size: 1.5em;
+    padding: 8px;
+  }
+  .calculator .buttons {
+    grid-template-rows: repeat(5, 50px);
+  }
+  .calculator .buttons .button {
+    padding: 8px;
+    font-size: 1.2em;
+  }
+}
+@media (max-width: 480px) {
+  .calculator {
+    padding: 10px;
+  }
+  .calculator #display {
+    font-size: 1.2em;
+    padding: 6px;
+  }
+  .calculator .buttons {
+    gap: 5px;
+    grid-template-rows: repeat(5, 40px);
+  }
+  .calculator .buttons .button {
+    padding: 6px;
+    font-size: 1em;
+  }
+}
+
+/*# sourceMappingURL=style.css.map */
