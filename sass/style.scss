@@ -1,17 +1,27 @@
-$number-color: #e8e8e8;
-$operator-color: #e74c3c;
-$function-color: #00d0ea;
-$equal-color: #ffca18;
+$light-number: #e8e8e8;
+$light-operator: #e74c3c;
+$light-function: #00d0ea;
+$light-equal: #ffca18;
+$light-calculator: #ffffff;
+$light-bg: #e8e8e8;
+$light-display: #e8e8e8;
+$light-text: #2c3e50;
+$dark-number: #3b3f40;
+$dark-operator: #e74c3c;
+$dark-function: #34495e;
+$dark-equal: #202636;
+$dark-calculator: #1c1b20;
+$dark-bg: #01010b;
+$dark-display: #3b3f40;
+$dark-text: #ecf0f1;
 
 .container {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #e8e8e8;
   height: 100vh;
 
   .calculator {
-    background-color: #ffffff;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -24,7 +34,7 @@ $equal-color: #ffca18;
       font-size: 2em;
       padding: 10px;
       border-radius: 5px;
-      border: 1px solid #e8e8e8;
+      border: 1px solid;
       width: 100%;
       box-sizing: border-box;
     }
@@ -44,40 +54,181 @@ $equal-color: #ffca18;
         border-radius: 10px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 
+        &.equal {
+          grid-row: span 2;
+        }
+      }
+    }
+  }
+}
+
+body.light {
+  background-color: $light-bg;
+
+  .calculator {
+    background-color: $light-calculator;
+
+    #display {
+      color:$light-text;
+      background-color: $light-display;
+      border-color: $light-display;
+    }
+
+    .buttons {
+      .button {
+        color: $light-text;
+
         &.number {
-          background-color: $number-color;
+          background-color: $light-number;
 
           &:hover {
-            background-color: darken($number-color, 10%);
+            background-color: darken($light-number, 10%);
           }
         }
 
         &.operator {
-          background-color: $operator-color;
+          background-color: $light-operator;
 
           &:hover {
-            background-color: darken($operator-color, 10%);
+            background-color: darken($light-operator, 10%);
           }
         }
 
         &.function {
-          background-color: $function-color;
+          background-color: $light-function;
 
           &:hover {
-            background-color: darken($function-color, 10%);
+            background-color: darken($light-function, 10%);
           }
         }
 
         &.equal {
-          background-color: $equal-color;
-          grid-row: span 2;
+          background-color: $light-equal;
 
           &:hover {
-            background-color: darken($equal-color, 10%);
+            background-color: darken($light-equal, 10%);
           }
         }
       }
     }
+  }
+}
+
+body.dark {
+  background-color: $dark-bg;
+
+  .calculator {
+    background-color: $dark-calculator;
+
+    #display {
+      color:$dark-text;
+      background-color: $dark-display;
+      border-color: $dark-display;
+    }
+
+    .buttons {
+      .button {
+        color: $dark-text;
+
+        &.number {
+          background-color: $dark-number;
+
+          &:hover {
+            background-color: darken($dark-number, 10%);
+          }
+        }
+
+        &.operator {
+          background-color: $dark-operator;
+
+          &:hover {
+            background-color: darken($dark-operator, 10%);
+          }
+        }
+
+        &.function {
+          background-color: $dark-function;
+
+          &:hover {
+            background-color: darken($dark-function, 10%);
+          }
+        }
+
+        &.equal {
+          background-color: $dark-equal;
+
+          &:hover {
+            background-color: darken($dark-equal, 10%);
+          }
+        }
+      }
+    }
+  }
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+  margin-bottom: 10px;
+  
+
+  input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: $dark-equal;
+    transition: 0.4s;
+    border-radius: 34px;
+
+    &:before {
+      position: absolute;
+      content: "";
+      height: 26px;
+      width: 26px;
+      left: 4px;
+      bottom: 4px;
+      background-color: $light-calculator;
+      transition: 0.4s;
+      border-radius: 50%;
+    }
+  }
+
+  input:checked + .slider {
+    background-color: $light-number;
+  }
+
+  input:checked + .slider:before {
+    transform: translateX(26px);
+    background-color: $dark-equal;
+  }
+
+  input:checked + .slider:after {
+    content: "☀️";
+    position: absolute;
+    left: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 14px;
+  }
+
+  .slider:after {
+    content: "🌙";
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 14px;
   }
 }
 

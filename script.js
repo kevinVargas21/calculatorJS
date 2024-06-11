@@ -1,6 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const toggleThemeCheckbox = document.getElementById('toggle-theme');
     const display = document.getElementById('display');
     const buttons = document.querySelectorAll('.button');
+    
     let currentInput = '';
 
     const operators = ['+', '-', '×', '÷'];
@@ -105,6 +107,34 @@ document.addEventListener('DOMContentLoaded', () => {
             handleInput('×');
         } else if (key === '/') {
             handleInput('÷');
+        }
+    });
+
+    let savedTheme = localStorage.getItem('theme');
+
+    console.log(savedTheme)
+
+    if (savedTheme === 'dark') {
+        document.body.classList.remove("light");
+        document.body.classList.add('dark');
+        toggleThemeCheckbox.checked = true;
+    } else {
+        document.body.classList.remove("dark");
+        document.body.classList.add('light');
+        toggleThemeCheckbox.checked = false;
+    }
+
+    toggleThemeCheckbox.addEventListener('change', (event) => {
+        if (event.target.checked) {
+            localStorage.setItem('theme', 'dark');
+            console.log("dark changed", savedTheme)
+            document.body.classList.remove("light");
+            document.body.classList.add("dark");           
+        } else {
+            localStorage.setItem('theme', 'light');
+            console.log("light changed", savedTheme)
+            document.body.classList.remove("dark");
+            document.body.classList.add("light");   
         }
     });
 });

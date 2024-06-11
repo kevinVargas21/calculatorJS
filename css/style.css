@@ -1,12 +1,11 @@
+@charset "UTF-8";
 .container {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #e8e8e8;
   height: 100vh;
 }
 .container .calculator {
-  background-color: #ffffff;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -19,7 +18,7 @@
   font-size: 2em;
   padding: 10px;
   border-radius: 5px;
-  border: 1px solid #e8e8e8;
+  border: 1px solid;
   width: 100%;
   box-sizing: border-box;
 }
@@ -38,30 +37,144 @@
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
-.container .calculator .buttons .button.number {
-  background-color: #e8e8e8;
-}
-.container .calculator .buttons .button.number:hover {
-  background-color: #cfcfcf;
-}
-.container .calculator .buttons .button.operator {
-  background-color: #e74c3c;
-}
-.container .calculator .buttons .button.operator:hover {
-  background-color: #d62c1a;
-}
-.container .calculator .buttons .button.function {
-  background-color: #00d0ea;
-}
-.container .calculator .buttons .button.function:hover {
-  background-color: #00a3b7;
-}
 .container .calculator .buttons .button.equal {
-  background-color: #ffca18;
   grid-row: span 2;
 }
-.container .calculator .buttons .button.equal:hover {
+
+body.light {
+  background-color: #e8e8e8;
+}
+body.light .calculator {
+  background-color: #ffffff;
+}
+body.light .calculator #display {
+  color: #2c3e50;
+  background-color: #e8e8e8;
+  border-color: #e8e8e8;
+}
+body.light .calculator .buttons .button {
+  color: #2c3e50;
+}
+body.light .calculator .buttons .button.number {
+  background-color: #e8e8e8;
+}
+body.light .calculator .buttons .button.number:hover {
+  background-color: #cfcfcf;
+}
+body.light .calculator .buttons .button.operator {
+  background-color: #e74c3c;
+}
+body.light .calculator .buttons .button.operator:hover {
+  background-color: #d62c1a;
+}
+body.light .calculator .buttons .button.function {
+  background-color: #00d0ea;
+}
+body.light .calculator .buttons .button.function:hover {
+  background-color: #00a3b7;
+}
+body.light .calculator .buttons .button.equal {
+  background-color: #ffca18;
+}
+body.light .calculator .buttons .button.equal:hover {
   background-color: #e4b000;
+}
+
+body.dark {
+  background-color: #01010b;
+}
+body.dark .calculator {
+  background-color: #1c1b20;
+}
+body.dark .calculator #display {
+  color: #ecf0f1;
+  background-color: #3b3f40;
+  border-color: #3b3f40;
+}
+body.dark .calculator .buttons .button {
+  color: #ecf0f1;
+}
+body.dark .calculator .buttons .button.number {
+  background-color: #3b3f40;
+}
+body.dark .calculator .buttons .button.number:hover {
+  background-color: #232525;
+}
+body.dark .calculator .buttons .button.operator {
+  background-color: #e74c3c;
+}
+body.dark .calculator .buttons .button.operator:hover {
+  background-color: #d62c1a;
+}
+body.dark .calculator .buttons .button.function {
+  background-color: #34495e;
+}
+body.dark .calculator .buttons .button.function:hover {
+  background-color: #22303d;
+}
+body.dark .calculator .buttons .button.equal {
+  background-color: #202636;
+}
+body.dark .calculator .buttons .button.equal:hover {
+  background-color: #0d0f16;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+  margin-bottom: 10px;
+}
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.switch .slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #202636;
+  transition: 0.4s;
+  border-radius: 34px;
+}
+.switch .slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: #ffffff;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+.switch input:checked + .slider {
+  background-color: #e8e8e8;
+}
+.switch input:checked + .slider:before {
+  transform: translateX(26px);
+  background-color: #202636;
+}
+.switch input:checked + .slider:after {
+  content: "☀️";
+  position: absolute;
+  left: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 14px;
+}
+.switch .slider:after {
+  content: "🌙";
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 14px;
 }
 
 @media (max-width: 768px) {
