@@ -2,27 +2,33 @@ document.addEventListener('DOMContentLoaded', () => {
     const toggleThemeCheckbox = document.getElementById('toggle-theme');
     const display = document.getElementById('display');
     const buttons = document.querySelectorAll('.button');
-    
+
     let currentInput = '';
-
     const operators = ['+', '-', '×', '÷'];
+    const themes = {
+        light: 'light',
+        dark: 'dark',
+    };
 
+    //Update screen
     function updateDisplay(value) {
         display.value = value;
     }
 
+    //Evaluate the mathematical expression
     function evaluateExpression(expression) {
         try {
-            let formattedExpression = expression.replace(/×/g, '*').replace(/÷/g, '/');
-            return eval(formattedExpression).toString();
+            let formattedExpression = expression.replace(/×/g, '*').replace(/÷/g, '/').replace(/--/g, '+');
+            return new Function('return ' + formattedExpression)().toString();
         } catch {
             return 'Error';
         }
     }
 
+    //Handle calculator input
     function handleInput(value) {
-        const lastChar = currentInput.length > 0 ? currentInput[currentInput.length - 1] : '';
-        const secondLastChar = currentInput.length > 1 ? currentInput[currentInput.length - 2] : '';
+        const lastChar = currentInput.slice(-1);
+        const secondLastChar = currentInput.slice(-2, -1);
 
         if (value === 'C') {
             currentInput = '';
@@ -31,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (value === '←') {
-            if (display.value === 'Error' || display.value === 'NaN' || display.value === 'Infinity') {
+            if (['Error', 'NaN', 'Infinity'].includes(display.value)) {
                 currentInput = '';
                 updateDisplay('');
                 return;
@@ -42,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (value === '=') {
-            if (display.value === 'Error' || display.value === 'NaN' || display.value === 'Infinity' || currentInput === '') {
+            if (['Error', 'NaN', 'Infinity'].includes(display.value) || currentInput === '') {
                 currentInput = '';
                 updateDisplay('');
                 return;
@@ -83,12 +89,14 @@ document.addEventListener('DOMContentLoaded', () => {
         updateDisplay(currentInput);
     }
 
+    //Add events to buttons
     buttons.forEach(button => {
         button.addEventListener('click', () => {
             handleInput(button.textContent);
         });
     });
 
+    //Handle keyboard input
     document.addEventListener('keydown', (event) => {
         const key = event.key;
         if (!isNaN(key) || key === '.') {
@@ -110,31 +118,19 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    let savedTheme = localStorage.getItem('theme');
-
-    console.log(savedTheme)
-
-    if (savedTheme === 'dark') {
-        document.body.classList.remove("light");
-        document.body.classList.add('dark');
-        toggleThemeCheckbox.checked = true;
-    } else {
-        document.body.classList.remove("dark");
-        document.body.classList.add('light');
-        toggleThemeCheckbox.checked = false;
+    //Manage theme status 
+    function applyTheme(theme) {
+        document.body.classList.remove(themes.light, themes.dark);
+        document.body.classList.add(theme);
+        localStorage.setItem('theme', theme);
     }
 
+    let savedTheme = localStorage.getItem('theme') || themes.light;
+    applyTheme(savedTheme);
+    toggleThemeCheckbox.checked = savedTheme === themes.dark;
+
     toggleThemeCheckbox.addEventListener('change', (event) => {
-        if (event.target.checked) {
-            localStorage.setItem('theme', 'dark');
-            console.log("dark changed", savedTheme)
-            document.body.classList.remove("light");
-            document.body.classList.add("dark");           
-        } else {
-            localStorage.setItem('theme', 'light');
-            console.log("light changed", savedTheme)
-            document.body.classList.remove("dark");
-            document.body.classList.add("light");   
-        }
+        const newTheme = event.target.checked ? themes.dark : themes.light;
+        applyTheme(newTheme);
     });
 });
