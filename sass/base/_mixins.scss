@@ -1,0 +1,54 @@
+@mixin theme-styles($theme) {
+    body.#{$theme} {
+      background-color: map-get(map-get($themes, $theme), bg);
+  
+      .calculator {
+        background-color: map-get(map-get($themes, $theme), calculator);
+  
+        #display {
+          color: map-get(map-get($themes, $theme), text);
+          background-color: map-get(map-get($themes, $theme), display);
+          border-color: map-get(map-get($themes, $theme), display);
+        }
+  
+        .buttons {
+          .button {
+            color: map-get(map-get($themes, $theme), text);
+  
+            &.number {
+              background-color: map-get(map-get($themes, $theme), number);
+  
+              &:hover {
+                background-color: darken(map-get(map-get($themes, $theme), number), 10%);
+              }
+            }
+  
+            &.operator {
+              background-color: map-get(map-get($themes, $theme), operator);
+  
+              &:hover {
+                background-color: darken(map-get(map-get($themes, $theme), operator), 10%);
+              }
+            }
+  
+            &.function {
+              background-color: map-get(map-get($themes, $theme), function);
+  
+              &:hover {
+                background-color: darken(map-get(map-get($themes, $theme), function), 10%);
+              }
+            }
+  
+            &.equal {
+              background-color: map-get(map-get($themes, $theme), equal);
+  
+              &:hover {
+                background-color: darken(map-get(map-get($themes, $theme), equal), 10%);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  
